@@ -1,0 +1,3 @@
+[submodule "oss-internship-2020/curl/custom_curl/curl"]
+	path = oss-internship-2020/curl/custom_curl/curl
+	url = https://github.com/curl/curl
