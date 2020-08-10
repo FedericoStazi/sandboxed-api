@@ -23,3 +23,12 @@ target_link_libraries(example1 PRIVATE
   curl_sapi 
   sapi::sapi
 )
+
+# Example 2: getinmemory.c
+add_executable(example2
+  example2.cc
+)
+target_link_libraries(example2 PRIVATE
+  curl_sapi
+  sapi::sapi
+)

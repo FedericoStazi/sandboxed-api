@@ -19,6 +19,16 @@ project(curl_sandboxed)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+option(CURL_SAPI_ENABLE_EXAMPLES "" ON)
+
+# Add the callbacks used by the examples
+if (CURL_SAPI_ENABLE_EXAMPLES)
+  list(APPEND CURL_SAPI_CALLBACKS 
+    "${CMAKE_CURRENT_SOURCE_DIR}/examples/callbacks.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/examples/callbacks.cc"
+  )
+endif()
+
 # Add folder containing the non-sandboxed custom curl library
 add_subdirectory(custom_curl)
 
@@ -35,7 +45,9 @@ add_subdirectory(
 # Generate SAPI header
 add_sapi_library(curl_sapi
 
-  FUNCTIONS curl_easy_cleanup
+  FUNCTIONS 
+            # Easy interface methods
+            curl_easy_cleanup
             curl_easy_duphandle
             curl_easy_escape
             curl_easy_getinfo
@@ -54,17 +66,16 @@ add_sapi_library(curl_sapi
             curl_easy_unescape
             curl_easy_upkeep
 
-  INPUTS "custom_curl/curl/include/curl/curlver.h"
-         "custom_curl/curl/include/curl/system.h" 
-         "custom_curl/curl/include/curl/curl.h"
-         "custom_curl/curl/include/curl/easy.h"
-         "custom_curl/custom_curl.h" 
+  INPUTS custom_curl/curl/include/curl/curl.h
+         custom_curl/custom_curl.h
+         
 
-  LIBRARY custom_curl
+  LIBRARY custom_curl_and_callbacks
 
   LIBRARY_NAME Curl
 
   NAMESPACE ""
+  
 )
 
 # Include generated SAPI header
@@ -73,4 +84,6 @@ target_include_directories(curl_sapi INTERFACE
 )
 
 # Add examples
-add_subdirectory(examples)
+if (CURL_SAPI_ENABLE_EXAMPLES)
+  add_subdirectory(examples)
+endif()
