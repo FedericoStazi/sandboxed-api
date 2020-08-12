@@ -13,6 +13,7 @@
 // limitations under the License.
 
 // Sandboxed version of getinmemory.c
+// HTTP GET request using callbacks
 
 #include <cstdlib>
 #include <iostream>
@@ -40,9 +41,13 @@ class CurlApiSandboxEx2 : public CurlSandbox {
 
 int main() {
 
+  absl::Status status;
+  sapi::StatusOr<CURL*> status_or_curl;
+  sapi::StatusOr<int> status_or_int;
+
   // Initialize sandbox2 and sapi
   CurlApiSandboxEx2 sandbox;
-  absl::Status status = sandbox.Init();
+  status = sandbox.Init();
   assert(status.ok());
   CurlApi api(&sandbox);
 
@@ -54,36 +59,34 @@ int main() {
   sapi::v::RemotePtr remote_function_ptr((void*)_function_ptr);
 
   // Initialize the curl session
-  sapi::StatusOr<CURL*> status_or_curl = api.curl_easy_init();
+  status_or_curl = api.curl_easy_init();
   assert(status_or_curl.ok());
   sapi::v::RemotePtr curl(status_or_curl.value());
   assert(curl.GetValue());  // Checking curl != nullptr
 
   // Specify URL to get
   sapi::v::ConstCStr url("http://example.com");
-  sapi::StatusOr<int> status_or_int = 
-    api.curl_easy_setopt_ptr(&curl, CURLOPT_URL, url.PtrBefore());
+  status_or_int = api.curl_easy_setopt_ptr(&curl, CURLOPT_URL, url.PtrBefore());
   assert(status_or_int.ok());
   assert(status_or_int.value() == CURLE_OK);
 
   // Set WriteMemoryCallback as the write function
-  status_or_int = 
-    api.curl_easy_setopt_ptr(&curl, CURLOPT_WRITEFUNCTION, 
-                             &remote_function_ptr);
+  status_or_int = api.curl_easy_setopt_ptr(&curl, CURLOPT_WRITEFUNCTION, 
+                                           &remote_function_ptr);
   assert(status_or_int.ok());
   assert(status_or_int.value() == CURLE_OK);
   
   // Pass 'chunk' struct to the callback function
   sapi::v::Struct<MemoryStruct> chunk;
-  status_or_int = 
-    api.curl_easy_setopt_ptr(&curl, CURLOPT_WRITEDATA, chunk.PtrBoth());
+  status_or_int = api.curl_easy_setopt_ptr(&curl, CURLOPT_WRITEDATA, 
+                                           chunk.PtrBoth());
   assert(status_or_int.ok());
   assert(status_or_int.value() == CURLE_OK);
 
   // Set a user agent
   sapi::v::ConstCStr user_agent("libcurl-agent/1.0");
-  status_or_int = 
-    api.curl_easy_setopt_ptr(&curl, CURLOPT_USERAGENT, user_agent.PtrBefore());
+  status_or_int = api.curl_easy_setopt_ptr(&curl, CURLOPT_USERAGENT, 
+                                           user_agent.PtrBefore());
   assert(status_or_int.ok());
   assert(status_or_int.value() == CURLE_OK);
 
