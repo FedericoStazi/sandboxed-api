@@ -17,7 +17,7 @@
 
 #include <cstdlib>
 
-#include "../sandbox.h"
+#include "../sandbox.h"  // NOLINT(build/include)
 
 class CurlSapiSandboxEx3 : public CurlSapiSandbox {
  public:

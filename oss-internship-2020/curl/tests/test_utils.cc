@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "test_utils.h"
+#include "test_utils.h"  // NOLINT(build/include)
 
 #include <absl/strings/match.h>
 #include <fcntl.h>

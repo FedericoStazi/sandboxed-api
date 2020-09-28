@@ -17,7 +17,7 @@
 
 #include <cstdlib>
 
-#include "../sandbox.h"
+#include "../sandbox.h"  // NOLINT(build/include)
 #include "curl_sapi.sapi.h"
 #include "sandboxed_api/util/flag.h"
 

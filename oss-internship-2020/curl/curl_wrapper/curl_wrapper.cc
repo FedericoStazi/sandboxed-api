@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "curl_wrapper.h"
+#include "curl_wrapper.h"  // NOLINT(build/include)
 
 CURLcode curl_easy_setopt_ptr(CURL* handle, CURLoption option,
                               void* parameter) {

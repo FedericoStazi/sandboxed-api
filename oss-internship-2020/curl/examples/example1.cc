@@ -17,7 +17,7 @@
 
 #include <cstdlib>
 
-#include "../sandbox.h"
+#include "../sandbox.h"  // NOLINT(build/include)
 
 int main(int argc, char* argv[]) {
   gflags::ParseCommandLineFlags(&argc, &argv, true);

@@ -19,7 +19,7 @@
 
 #include <cstdlib>
 
-#include "../sandbox.h"
+#include "../sandbox.h"  // NOLINT(build/include)
 
 void pull_one_url(const std::string& url, CurlApi& api) {
   // Initialize the curl session

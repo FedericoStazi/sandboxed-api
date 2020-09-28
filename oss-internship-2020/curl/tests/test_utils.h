@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef TESTS_H
-#define TESTS_H
+#ifndef TEST_UTILS_H_
+#define TEST_UTILS_H_
 
-#include "../sandbox.h"
+#include "../sandbox.h"  // NOLINT(build/include)
 #include "curl_sapi.sapi.h"
 #include "gtest/gtest.h"
 #include "sandboxed_api/util/flag.h"
@@ -52,4 +52,4 @@ class CurlTestUtils {
   std::unique_ptr<sapi::v::LenVal> chunk_;
 };
 
-#endif  // TESTS_H
+#endif  // TEST_UTILS_H_

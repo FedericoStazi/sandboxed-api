@@ -17,7 +17,7 @@
 
 #include <cstdlib>
 
-#include "../sandbox.h"
+#include "../sandbox.h"  // NOLINT(build/include)
 #include "sandboxed_api/transaction.h"
 
 class CurlTransaction : public sapi::Transaction {
