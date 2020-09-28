@@ -20,7 +20,7 @@ add_executable(tests
   tests.cc
 )
 
-target_link_libraries(tests 
+target_link_libraries(tests
   curl_sapi sapi::sapi
   gtest gmock gtest_main
 )

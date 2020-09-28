@@ -22,7 +22,9 @@
 #include "sandboxed_api/sandbox2/util/bpf_helper.h"
 #include "sandboxed_api/util/flag.h"
 
-class CurlSapiSandbox : public CurlSandbox {
+namespace curl {
+
+class CurlSapiSandbox : public curl::CurlSandbox {
  protected:
   std::unique_ptr<sandbox2::Policy> ModifyPolicy(
       sandbox2::PolicyBuilder* policy_builder) override {
@@ -61,3 +63,5 @@ class CurlSapiSandbox : public CurlSandbox {
         .BuildOrDie();
   }
 };
+
+}  // namespace curl

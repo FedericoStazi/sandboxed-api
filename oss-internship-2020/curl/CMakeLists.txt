@@ -24,7 +24,7 @@ option(SAPI_CURL_ENABLE_TESTS "" ON)
 
 # Add callbacks used by examples and tests
 if (SAPI_CURL_ENABLE_EXAMPLES OR SAPI_CURL_ENABLE_TESTS)
-  list(APPEND CURL_SAPI_CALLBACKS 
+  list(APPEND CURL_SAPI_CALLBACKS
     "${CMAKE_CURRENT_SOURCE_DIR}/callbacks/callbacks.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/callbacks/callbacks.cc"
   )
@@ -125,7 +125,7 @@ add_sapi_library(curl_sapi
 
   LIBRARY_NAME Curl
 
-  NAMESPACE ""
+  NAMESPACE curl
 )
 
 # Include generated SAPI header
